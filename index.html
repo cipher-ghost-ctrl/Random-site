@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OptiPlex 7050 SFF — The Legacy Machine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #06060F;
+    --bg2: #0D0D1A;
+    --bg3: #121225;
+    --gold: #C8A84B;
+    --gold2: #E2C97E;
+    --gold-dim: rgba(200,168,75,0.12);
+    --gold-border: rgba(200,168,75,0.25);
+    --text: #F0EDE4;
+    --muted: #888;
+    --card-bg: rgba(255,255,255,0.03);
+    --card-border: rgba(255,255,255,0.07);
+    --radius: 12px;
+    --radius-lg: 20px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    background: rgba(6,6,15,0.85);
+    backdrop-filter: blur(16px);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-badge {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.75rem;
+    font-family: 'DM Mono', monospace;
+    color: var(--gold);
+    border: 1px solid var(--gold-border);
+    padding: 0.35rem 0.9rem;
+    border-radius: 100px;
+    background: var(--gold-dim);
+  }
+
+  .nav-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: block;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 0 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,168,75,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: 0;
+    right: 0; height: 200px;
+    background: linear-gradient(to top, var(--bg), transparent);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold-border);
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    background: var(--gold-dim);
+    width: fit-content;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    max-width: 10ch;
+    animation: fadeUp 0.7s 0.1s ease both;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 50ch;
+    line-height: 1.7;
+    font-weight: 400;
+    margin-bottom: 3rem;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+
+  .hero-ctas {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: #06060F;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.9rem 2rem;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+  .btn-primary:hover { background: var(--gold2); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    padding: 0.9rem 2rem;
+    border-radius: 100px;
+    text-decoration: none;
+    border: 1px solid var(--card-border);
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.2); background: var(--card-bg); }
+
+  .hero-stats {
+    display: flex; gap: 4rem;
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--card-border);
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+
+  .stat-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 0.2rem;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* TICKER */
+  .ticker-wrap {
+    overflow: hidden;
+    border-top: 1px solid var(--card-border);
+    border-bottom: 1px solid var(--card-border);
+    background: var(--bg2);
+    padding: 0.9rem 0;
+  }
+
+  .ticker-track {
+    display: flex; gap: 0;
+    width: max-content;
+    animation: ticker 25s linear infinite;
+  }
+
+  .ticker-track:hover { animation-play-state: paused; }
+
+  .ticker-item {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    padding: 0 2.5rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .ticker-item span {
+    color: var(--gold);
+    margin-right: 0.5rem;
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* SECTIONS */
+  section { padding: 7rem 3rem; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    max-width: 18ch;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  /* FEATURES */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 4rem;
+  }
+
+  .feature-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .feature-card:hover {
+    border-color: var(--gold-border);
+    background: rgba(200,168,75,0.04);
+  }
+
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200,168,75,0.4), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .feature-card:hover::before { opacity: 1; }
+
+  .feature-icon {
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+
+  .feature-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.02em;
+  }
+
+  .feature-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+    font-family: 'Syne', sans-serif;
+    font-weight: 400;
+  }
+
+  .feature-tags {
+    display: flex; gap: 0.5rem; flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    color: var(--gold);
+    background: var(--gold-dim);
+    border: 1px solid var(--gold-border);
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+  }
+
+  /* SPECS BLUEPRINT */
+  .blueprint {
+    background: var(--bg2);
+    border-top: 1px solid var(--card-border);
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .blueprint-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-top: 2.5rem;
+  }
+
+  .spec-item {
+    padding: 1.4rem 1.6rem;
+    border-right: 1px solid var(--card-border);
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .spec-item:nth-child(even) { border-right: none; }
+  .spec-item:nth-last-child(-n+2) { border-bottom: none; }
+
+  .spec-key {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .spec-val {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .blueprint-visual {
+    display: flex; justify-content: center; align-items: center;
+  }
+
+  .pc-diagram {
+    position: relative;
+    width: 280px; height: 380px;
+    border: 2px solid var(--gold-border);
+    border-radius: 16px;
+    background: var(--bg3);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 1rem;
+  }
+
+  .pc-label {
+    position: absolute;
+    top: -0.7rem; left: 50%; transform: translateX(-50%);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: var(--bg2);
+    padding: 0.1rem 0.8rem;
+    white-space: nowrap;
+  }
+
+  .pc-slot {
+    width: 80%; height: 40px;
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    background: rgba(255,255,255,0.03);
+    display: flex; align-items: center;
+    padding: 0 1rem;
+    gap: 0.6rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+
+  .pc-slot-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold); flex-shrink: 0;
+  }
+
+  .pc-slot.active { border-color: var(--gold-border); color: var(--gold); }
+
+  /* WHY */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-top: 3rem;
+  }
+
+  .why-item {
+    padding: 2rem 1.8rem;
+    border-right: 1px solid var(--card-border);
+    transition: background 0.3s;
+  }
+
+  .why-item:last-child { border-right: none; }
+  .why-item:hover { background: var(--gold-dim); }
+
+  .why-icon {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .why-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .why-body {
+    font-size: 0.83rem;
+    color: var(--muted);
+    line-height: 1.65;
+    font-weight: 400;
+  }
+
+  /* CTA */
+  .cta-section {
+    text-align: center;
+    padding: 8rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse, rgba(200,168,75,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-title em { font-style: italic; color: var(--gold); }
+
+  .cta-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 50ch;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--card-border);
+    padding: 2rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  footer a { color: var(--gold); text-decoration: none; }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1; transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .hero-stats { gap: 2rem; }
+    .blueprint-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .blueprint-visual { display: none; }
+    .why-item { border-right: none; border-bottom: 1px solid var(--card-border); }
+    .why-item:last-child { border-bottom: none; }
+    footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">OptiPlex 7050</a>
+  <ul class="nav-links">
+    <li><a href="#features">Specs</a></li>
+    <li><a href="#blueprint">Blueprint</a></li>
+    <li><a href="#why">Why SFF</a></li>
+  </ul>
+  <div class="nav-badge">Dell Legacy · Still Running</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-eyebrow">✦ Kaby Lake · Intel Q270 · SFF Form Factor</div>
+  <h1 class="hero-title">The <em>Legend</em> of Small Form Factor.</h1>
+  <p class="hero-sub">The Dell OptiPlex 7050 SFF was built for boardrooms. Then it escaped into the wild — into homelabs, gaming rigs, and budget builds across the internet. This is its story.</p>
+  <div class="hero-ctas">
+    <a href="#blueprint" class="btn-primary">View Full Blueprint →</a>
+    <a href="#features" class="btn-secondary">Explore Specs</a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-val">7th Gen</div>
+      <div class="stat-label">Intel Core · up to i7-7700</div>
+    </div>
+    <div>
+      <div class="stat-val">64GB</div>
+      <div class="stat-label">Max DDR4 · 4 DIMM slots</div>
+    </div>
+    <div>
+      <div class="stat-val">~£60</div>
+      <div class="stat-label">Typical eBay price · 2025</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <div class="ticker-item"><span>✦</span>Intel Q270 Chipset</div>
+    <div class="ticker-item"><span>✦</span>NVMe M.2 Support</div>
+    <div class="ticker-item"><span>✦</span>180W Bronze PSU</div>
+    <div class="ticker-item"><span>✦</span>TPM 2.0 Hardened</div>
+    <div class="ticker-item"><span>✦</span>GT 1050 Ti Compatible</div>
+    <div class="ticker-item"><span>✦</span>USB Type-C + Legacy A</div>
+    <div class="ticker-item"><span>✦</span>Dual DisplayPort 1.2</div>
+    <div class="ticker-item"><span>✦</span>Windows 10 Pro Licence</div>
+    <div class="ticker-item"><span>✦</span>Dual-Channel 2400 MT/s</div>
+    <div class="ticker-item"><span>✦</span>Intel Q270 Chipset</div>
+    <div class="ticker-item"><span>✦</span>NVMe M.2 Support</div>
+    <div class="ticker-item"><span>✦</span>180W Bronze PSU</div>
+    <div class="ticker-item"><span>✦</span>TPM 2.0 Hardened</div>
+    <div class="ticker-item"><span>✦</span>GT 1050 Ti Compatible</div>
+    <div class="ticker-item"><span>✦</span>USB Type-C + Legacy A</div>
+    <div class="ticker-item"><span>✦</span>Dual DisplayPort 1.2</div>
+    <div class="ticker-item"><span>✦</span>Windows 10 Pro Licence</div>
+    <div class="ticker-item"><span>✦</span>Dual-Channel 2400 MT/s</div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-label">What It Packs</div>
+  <h2 class="section-title">Boardroom specs. <em>Basement</em> prices.</h2>
+  <p style="color:var(--muted);max-width:55ch;line-height:1.7;font-weight:400;">A machine originally sold to enterprise clients for four figures is now a hobbyist's dream. Here's why the 7050 SFF punches so far above its price.</p>
+
+  <div class="features-grid reveal">
+    <div class="feature-card">
+      <span class="feature-icon">🧠</span>
+      <div class="feature-name">7th Gen Intel Core</div>
+      <p class="feature-desc">Support up to the i7-7700 — 4 cores, 8 threads. Quick-sync hardware encode, AES-NI encryption, and enough grunt for virtualization, compiling, and light gaming simultaneously.</p>
+      <div class="feature-tags">
+        <span class="tag">i3 / i5 / i7</span>
+        <span class="tag">4 Cores · 8 Threads</span>
+        <span class="tag">65W TDP</span>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">💾</span>
+      <div class="feature-name">Expandable RAM · Up to 64GB</div>
+      <p class="feature-desc">Four DIMM slots running dual-channel DDR4 at 2400 MT/s. Most units ship with 8–16GB — drop in two 32GB sticks and turn this into a workstation that'd embarrass machines five times the price.</p>
+      <div class="feature-tags">
+        <span class="tag">DDR4 · 2400 MT/s</span>
+        <span class="tag">4x DIMM</span>
+        <span class="tag">Dual Channel</span>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">🎮</span>
+      <div class="feature-name">Low-Profile GPU Ready</div>
+      <p class="feature-desc">The PCIe slot accepts low-profile cards natively. Slide in a GT 1050 Ti LP and you've got a 1080p gaming machine for the price of a takeaway. The chassis was never meant for this. That's the point.</p>
+      <div class="feature-tags">
+        <span class="tag">PCIe x16</span>
+        <span class="tag">75W GPU Limit</span>
+        <span class="tag">1080p Gaming</span>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">⚡</span>
+      <div class="feature-name">Modern Storage · M.2 NVMe</div>
+      <p class="feature-desc">An M.2 slot with NVMe support sits alongside a 3.5" SATA bay. Pair a 500GB NVMe boot drive with a 4TB spinning disk and you've got a homelab-ready storage configuration inside a box the size of a hardback book.</p>
+      <div class="feature-tags">
+        <span class="tag">NVMe M.2</span>
+        <span class="tag">3.5" SATA Bay</span>
+        <span class="tag">Dual Storage</span>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">🔌</span>
+      <div class="feature-name">Connectivity · USB-C & Beyond</div>
+      <p class="feature-desc">Front and rear USB-A, a rear USB Type-C, dual DisplayPort 1.2 outputs for a twin-monitor setup, and legacy HDMI. Plus Gigabit Ethernet on the Intel I219-LM NIC — the one actually worth having.</p>
+      <div class="feature-tags">
+        <span class="tag">USB-C</span>
+        <span class="tag">2× DisplayPort</span>
+        <span class="tag">Intel I219-LM</span>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">🔒</span>
+      <div class="feature-name">Security · TPM 2.0 Hardened</div>
+      <p class="feature-desc">TPM 2.0 onboard means Windows 11 is technically unlockable with a registry patch, BitLocker works natively, and secure boot is supported. Enterprise-grade hardware security for the price of a bus ticket.</p>
+      <div class="feature-tags">
+        <span class="tag">TPM 2.0</span>
+        <span class="tag">Secure Boot</span>
+        <span class="tag">BitLocker</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLUEPRINT -->
+<section class="blueprint" id="blueprint">
+  <div class="blueprint-inner">
+    <div>
+      <div class="section-label">The Blueprint</div>
+      <h2 class="section-title">Every spec. <em>No filler.</em></h2>
+      <p style="color:var(--muted);max-width:45ch;line-height:1.7;font-weight:400;margin-top:1rem;">The full technical specification of the OptiPlex 7050 SFF. Everything Dell included when they shipped this to enterprise clients at a markup you'd rather not know about.</p>
+
+      <div class="spec-grid reveal">
+        <div class="spec-item">
+          <div class="spec-key">Chipset</div>
+          <div class="spec-val">Intel Q270</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-key">Power Supply</div>
+          <div class="spec-val">180W Bronze</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-key">Storage</div>
+          <div class="spec-val">NVMe M.2 + SATA</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-key">OS Licence</div>
+          <div class="spec-val">Windows 10 Pro</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-key">Display Out</div>
+          <div class="spec-val">2× DP 1.2</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-key">Security</div>
+          <div class="spec-val">TPM 2.0</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-key">Form Factor</div>
+          <div class="spec-val">Small Form Factor</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-key">Network</div>
+          <div class="spec-val">Intel I219-LM GbE</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="blueprint-visual reveal">
+      <div class="pc-diagram">
+        <div class="pc-label">OptiPlex 7050 SFF</div>
+        <div class="pc-slot active">
+          <div class="pc-slot-dot"></div> CPU · i7-7700
+        </div>
+        <div class="pc-slot active">
+          <div class="pc-slot-dot"></div> RAM · 4× DDR4 DIMM
+        </div>
+        <div class="pc-slot active">
+          <div class="pc-slot-dot"></div> NVMe M.2 Slot
+        </div>
+        <div class="pc-slot">
+          <div class="pc-slot-dot" style="background:var(--muted)"></div> PCIe x16 · GPU LP
+        </div>
+        <div class="pc-slot">
+          <div class="pc-slot-dot" style="background:var(--muted)"></div> 3.5" SATA Bay
+        </div>
+        <div class="pc-slot">
+          <div class="pc-slot-dot" style="background:var(--muted)"></div> 180W PSU
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="section-label">Why SFF?</div>
+  <h2 class="section-title reveal">No bulk. Just <em>capability.</em></h2>
+  <p class="reveal" style="color:var(--muted);max-width:55ch;line-height:1.7;font-weight:400;margin-top:0.5rem;">The cult following around small form factor PCs isn't about aesthetics. It's about doing more with less — and the 7050 SFF is proof that enterprise-grade hardware doesn't need enterprise-grade space.</p>
+
+  <div class="why-grid reveal">
+    <div class="why-item">
+      <div class="why-icon">🎯</div>
+      <div class="why-title">Desk-friendly footprint</div>
+      <p class="why-body">At roughly the size of a hardback novel, the 7050 SFF fits anywhere. Wall-mounted, under-monitor, in a media cabinet. Enterprise hardware, consumer-sized.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">📱</div>
+      <div class="why-title">Silent running</div>
+      <p class="why-body">Lower TDP components and efficient airflow mean this runs quieter than most gaming rigs at idle. Perfect for a bedroom lab or always-on home server use.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">💷</div>
+      <div class="why-title">Honest value</div>
+      <p class="why-body">No overpriced RTX branding, no RGB surcharges. You get real enterprise engineering — Q270 chipset, Intel NIC, TPM 2.0 — at a fraction of the retail cost.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">⚡</div>
+      <div class="why-title">Modular & upgradeable</div>
+      <p class="why-body">Dell's tool-free chassis means RAM, storage, and GPU swaps take minutes, not hours. The 7050 SFF was designed to be maintained. That's not common anymore.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <h2 class="cta-title">Ready to build your <em>legacy rig?</em></h2>
+  <p class="cta-sub">The 7050 SFF is still out there — on eBay, at IT liquidators, in office clearance sales. Your next homelab is waiting.</p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+    <a href="https://www.hardware-corner.net/desktop-models/Dell-OptiPlex-7050-SFF/" target="_blank" class="btn-primary">Full Spec Sheet →</a>
+    <a href="https://www.dell.com/support/product-details/en-uk/product/optiplex-7050-sff/resources/3dguides" target="_blank" class="btn-secondary">Dell AR Guide</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 OptiPlex 7050 SFF — Fan Page · Not affiliated with Dell</span>
+  <span>Styled after <a href="https://h-builds-v5.vercel.app" target="_blank">H.Builds</a> · Built with Claude</span>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+  reveals.forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>

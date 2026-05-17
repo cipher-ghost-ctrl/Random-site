@@ -1,1 +1,1 @@
-# Random-site
+ Reproduce the H.Builds visual language on demand — dark near-black background, gold accent system, Playfair Display serif headings, DM Mono for labels/data, marquee tickers, glowing pill badges, scroll reveal animations, and the specific card/grid patterns.
